@@ -151,35 +151,35 @@ model = Sequential([
 This model is a Convolutional Neural Network (CNN) with 3 convolutional layers followed by max-pooling and dropout layers. After that, the output of the convolutional layers is flattened and passed through fully connected layers with ReLU activations. The final layer uses softmax activation to output probabilities for classification. The model is designed to perform image classification tasks, with data augmentation provided by the train_generator.
 
 ##  1. Sequential()
-    - This defines a linear stack of layers. Each layer in the model has exactly one input tensor and one output tensor, making it suitable for simple, stackable architectures like CNNs.
+- This defines a linear stack of layers. Each layer in the model has exactly one input tensor and one output tensor, making it suitable for simple, stackable architectures like CNNs.
 ## 2. `Conv2D(32, (3, 3), activation='relu', input_shape=(IMAGE_SIZE[0], IMAGE_SIZE[1], 3)`)
-    - `Conv2D`: This is a 2D convolutional layer. It applies 32 filters (kernels) of size 3x3 to the input image, which helps in detecting patterns like edges, textures, etc.
-    - `activation='relu'`: ReLU (Rectified Linear Unit) is used as the activation function, which introduces non-linearity, allowing the network to learn more complex features.
-    - `input_shape`: Defines the shape of the input image. Here, IMAGE_SIZE[0] and IMAGE_SIZE[1] are the height and width of the image, and 3 indicates 3 color channels (RGB).
+- `Conv2D`: This is a 2D convolutional layer. It applies 32 filters (kernels) of size 3x3 to the input image, which helps in detecting patterns like edges, textures, etc.
+- `activation='relu'`: ReLU (Rectified Linear Unit) is used as the activation function, which introduces non-linearity, allowing the network to learn more complex features.
+- `input_shape`: Defines the shape of the input image. Here, IMAGE_SIZE[0] and IMAGE_SIZE[1] are the height and width of the image, and 3 indicates 3 color channels (RGB).
 ## 3. `MaxPooling2D(pool_size=(2, 2))`
-    - `MaxPooling2D`: This layer performs max pooling, which reduces the spatial dimensions of the feature maps by selecting the maximum value in each 2x2 block. This reduces the number of parameters and helps prevent overfitting.
+- `MaxPooling2D`: This layer performs max pooling, which reduces the spatial dimensions of the feature maps by selecting the maximum value in each 2x2 block. This reduces the number of parameters and helps prevent overfitting.
 ## 4. `Dropout(0.25)`
-    - `Dropout`: This regularization technique randomly sets a fraction (25% in this case) of the input units to zero during training to prevent overfitting and improve generalization.
+- `Dropout`: This regularization technique randomly sets a fraction (25% in this case) of the input units to zero during training to prevent overfitting and improve generalization.
 ## 5. `Conv2D(64, (3, 3), activation='relu')`
-    - Another `Conv2D` layer, but this time with 64 filters. The rest of the configuration is similar to the first convolutional layer, allowing the model to learn more complex patterns.
+- Another `Conv2D` layer, but this time with 64 filters. The rest of the configuration is similar to the first convolutional layer, allowing the model to learn more complex patterns.
 ## 6. `MaxPooling2D(pool_size=(2, 2))`
-    - Another `MaxPooling2D` layer, which helps in reducing the spatial dimensions of the feature maps after the second convolution.
+- Another `MaxPooling2D` layer, which helps in reducing the spatial dimensions of the feature maps after the second convolution.
 ## 7. `Dropout(0.25)`
-    - `Dropout with 25%` chance again to reduce overfitting.
+- `Dropout with 25%` chance again to reduce overfitting.
 ## 8. `Conv2D(128, (3, 3), activation='relu')`
-    - Another convolutional layer with 128 filters, further increasing the capacity of the network to learn complex features.
+- Another convolutional layer with 128 filters, further increasing the capacity of the network to learn complex features.
 ## 9. `MaxPooling2D(pool_size=(2, 2))`
-    - Another `MaxPooling2D layer`.
+- Another `MaxPooling2D layer`.
 ## 10. `Dropout(0.25)`
-    - Dropout with 25% chance again.
+- Dropout with 25% chance again.
 ## 11. Flatten()
-    - `Flatten`: This layer flattens the multi-dimensional feature maps from the previous layer into a one-dimensional vector. This step is necessary before feeding the data into the fully connected (dense) layers.
+- `Flatten`: This layer flattens the multi-dimensional feature maps from the previous layer into a one-dimensional vector. This step is necessary before feeding the data into the fully connected (dense) layers.
 ## 12. `Dense(512, activation='relu')`
-    - `Dense`: This is a fully connected layer with 512 neurons. The ReLU activation function introduces non-linearity, enabling the model to learn more complex representations.
+- `Dense`: This is a fully connected layer with 512 neurons. The ReLU activation function introduces non-linearity, enabling the model to learn more complex representations.
 ## 13. `Dropout(0.5)`
-    - `Dropout` with a higher dropout rate of 50%. This helps to further regularize the model and prevent overfitting.
+- `Dropout` with a higher dropout rate of 50%. This helps to further regularize the model and prevent overfitting.
 ## 14. `Dense(train_generator.num_classes, activation='softmax')`
-    - This is the output layer. It has as many neurons as the number of classes in the dataset (`train_generator.num_classes`), and softmax activation is used to output a probability distribution over the classes. The neuron with the highest probability will be considered as the model's prediction.
+- This is the output layer. It has as many neurons as the number of classes in the dataset (`train_generator.num_classes`), and softmax activation is used to output a probability distribution over the classes. The neuron with the highest probability will be considered as the model's prediction.
 
 
 
@@ -203,19 +203,20 @@ The `EarlyStopping` callback is used to stop training early if the validation pe
 
 
 ## history = model.fit(...)
-    - `fit()`: This method trains the model for a fixed number of epochs (iterations over the entire dataset). It uses the data provided in the train_generator and evaluates the model using the test_generator. The method returns a history object that contains the training and validation metrics for each epoch.
-## train_generator
-    - `train_generator`: This is the data generator that provides batches of training data. In this case, it's likely an instance of ImageDataGenerator or another generator that loads and preprocesses image data for training. It provides the input images and labels to the model in real time during training.
-## epochs=EPOCHS
-    - `epochs`: This parameter defines how many times the model will iterate over the entire training dataset. EPOCHS is typically a variable defined elsewhere, and it specifies the number of epochs the model will train for.
-## validation_data=test_generator
-    - `validation_data`: This parameter specifies the data that the model will use for validation after each epoch. The model evaluates its performance on this data at the end of each epoch to check if it's overfitting or improving. Here, test_generator is used to generate the validation data. Like train_generator, it's typically an instance of ImageDataGenerator (or another data generator) for the test set.
-## callbacks=[tf.keras.callbacks.EarlyStopping(patience=5, restore_best_weights=True)]
-    - `callbacks`: This parameter accepts a list of callback functions that are applied during training. In this case, the model is using EarlyStopping.
 
-        - `EarlyStopping`: This callback monitors the training process and can stop training early if the model's performance on the validation set stops improving. It helps to prevent overfitting by stopping the training before the model starts overfitting on the training data.
-            - `patience=5`: This means that training will stop if the validation performance (e.g., validation loss or accuracy) does not improve for 5 consecutive epochs. The patience allows some flexibility, so the model doesn’t stop prematurely.
-            - `restore_best_weights=True`: This ensures that after early stopping, the model will revert to the weights from the best epoch (the epoch with the lowest validation loss or highest validation accuracy). This helps avoid keeping weights from a later epoch where overfitting might have started.
+- `fit()`: This method trains the model for a fixed number of epochs (iterations over the entire dataset). It uses the data provided in the train_generator and evaluates the model using the test_generator. The method returns a history object that contains the training and validation metrics for each epoch.
+## train_generator
+- `train_generator`: This is the data generator that provides batches of training data. In this case, it's likely an instance of ImageDataGenerator or another generator that loads and preprocesses image data for training. It provides the input images and labels to the model in real time during training.
+## epochs=EPOCHS
+- `epochs`: This parameter defines how many times the model will iterate over the entire training dataset. EPOCHS is typically a variable defined elsewhere, and it specifies the number of epochs the model will train for.
+## validation_data=test_generator
+- `validation_data`: This parameter specifies the data that the model will use for validation after each epoch. The model evaluates its performance on this data at the end of each epoch to check if it's overfitting or improving. Here, test_generator is used to generate the validation data. Like train_generator, it's typically an instance of ImageDataGenerator (or another data generator) for the test set.
+## callbacks=[tf.keras.callbacks.EarlyStopping(patience=5, restore_best_weights=True)]
+- `callbacks`: This parameter accepts a list of callback functions that are applied during training. In this case, the model is using EarlyStopping.
+
+    - `EarlyStopping`: This callback monitors the training process and can stop training early if the model's performance on the validation set stops improving. It helps to prevent overfitting by stopping the training before the model starts overfitting on the training data.
+        - `patience=5`: This means that training will stop if the validation performance (e.g., validation loss or accuracy) does not improve for 5 consecutive epochs. The patience allows some flexibility, so the model doesn’t stop prematurely.
+        - `restore_best_weights=True`: This ensures that after early stopping, the model will revert to the weights from the best epoch (the epoch with the lowest validation loss or highest validation accuracy). This helps avoid keeping weights from a later epoch where overfitting might have started.
 ## What Happens During Training:
 1. The model will start training using the batches of data from train_generator.
 2. After each epoch, the model will evaluate itself on the validation data from test_generator.
