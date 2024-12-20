@@ -7,8 +7,10 @@
 3. [Image Generators](#schema3)
 4. [Model](#schema4)
 5. [Fit Model](#schema5)
+6. [Test Model](#schema6)
+7. [Code](#schema7)
 
-[Resource](#schemaref)
+8. [Resource](#schemaref)
 
 
 <hr>
@@ -185,7 +187,7 @@ This model is a Convolutional Neural Network (CNN) with 3 convolutional layers f
 
 <hr>
 
-<a name="schema4"></a>
+<a name="schema5"></a>
 
 # 5. Fit Model
 
@@ -223,12 +225,22 @@ The `EarlyStopping` callback is used to stop training early if the validation pe
 3. The EarlyStopping callback will monitor the validation performance, and if it doesn’t improve for 5 epochs, it will stop training early.
 4. The history object will capture the training and validation metrics (like loss and accuracy) for each epoch, which can be used for analysis or plotting.
 
+<hr>
+
+<a name="schema6"></a>
+
+# 6 Test Model
+![Accuracy](./img/accuracy.jpg)
+![Loss](./img/loss.jpg)
 
 
+<hr>
 
+<a name="schema7"></a>
 
+# 7. Code
 
-
+https://www.kaggle.com/code/patriciacarrasco/fast-food-classification
 
 
 
@@ -240,7 +252,7 @@ The `EarlyStopping` callback is used to stop training early if the validation pe
 
 <a name="schemaref"></a>
 
-## Resource 
+# 8. Resource 
 
 [Fast Food Kaggle dataset](https://www.kaggle.com/datasets/utkarshsaxenadn/fast-food-classification-dataset/data)
 
